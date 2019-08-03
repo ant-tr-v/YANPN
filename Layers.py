@@ -150,13 +150,13 @@ class MaxPool2D:
 
 
 class BatchNorm2D:
-    # FIXME: it works incorrect but close ....
-    def __init__(self, gamma, betta, mean, std,  data_format='channels_first'):
+    # FIXME: it works almost correct....
+    def __init__(self, gamma, betta, mean, var,  data_format='channels_first'):
         if data_format not in ['channels_first', 'channels_last']:
             raise AttributeError('data_format should be ether "channels_first" or "channels_last"')
         self.data_format = data_format
         self.mean = np.array(mean)
-        self.std = np.array(std)
+        self.std = 1.0 / (np.sqrt(np.array(var) + 1e-3))
         self.gamma = np.array(gamma)
         self.betta = np.array(betta)
 
@@ -171,7 +171,7 @@ class BatchNorm2D:
             x = np.transpose(x, (2, 0, 1))
 
         for i, m, s, g, b in zip(list(range(x.shape[0])), self.mean, self.std, self.gamma, self.betta):
-            x[i] = (g * (x[i] - m) / s + b) # (g * (x[i] - m) / (s + 1e-3)**0.5 + b)
+            x[i] = (g * (x[i] - m) *s + b)
         if self.data_format == 'channels_last':
             x = np.transpose(x, (1, 2, 0))
         return x
