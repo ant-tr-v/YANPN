@@ -15,8 +15,8 @@ model.add(Conv2D(32, kernel_size=(7, 7),
                  input_shape=input_shape,
                  data_format=data_format, padding='same'))
 model.add(MaxPool2D(pool_size=(2,2), data_format=data_format))
-model.add(Conv2D(128, (3, 3), activation='relu', data_format=data_format))
 model.add(BatchNormalization(axis=1))
+model.add(Conv2D(128, (3, 3), activation='relu', data_format=data_format))
 model.add(GlobalAveragePooling2D(data_format=data_format))
 #model.add(Dense(256, activation='tanh'))
 model.add(Dense(10, activation='softmax'))
