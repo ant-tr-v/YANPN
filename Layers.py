@@ -150,7 +150,6 @@ class MaxPool2D:
 
 
 class BatchNorm2D:
-    # FIXME: it works almost correct....
     def __init__(self, gamma, betta, mean, var,  data_format='channels_first'):
         if data_format not in ['channels_first', 'channels_last']:
             raise AttributeError('data_format should be ether "channels_first" or "channels_last"')

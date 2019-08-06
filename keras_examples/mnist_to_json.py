@@ -26,10 +26,11 @@ model.load_weights('../nets/keras_mnist.h5')
 model.summary()
 
 weights = []
-for w in model.weights:
-    l = K.eval(w)
-    print(l.shape)
-    weights.append(l.tolist())
+for layer in model.layers:
+    for w in layer.weights:
+        l = K.eval(w)
+        print(l.shape)
+        weights.append(l.tolist())
 
 with open('../nets/numpy_mnist.json', 'w') as f:
     json.dump(weights, f)
