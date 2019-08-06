@@ -12,7 +12,7 @@ class Dense:
         self.W = self.W.T
         self.bias = np.array(biases) if biases is not None else None
         if self.bias is not None and (self.bias.ndim != 1 or len(self.bias) != self.W.shape[0]):
-            raise ValueError
+            raise ValueError('Incorrect shape')
 
     def __call__(self, x, *args, **kwargs):
         if not isinstance(x, Iterable):
@@ -21,7 +21,7 @@ class Dense:
             x = np.array(x)
         x.reshape((-1,))
         if len(x) != self.W.shape[1]:
-            raise ValueError
+            raise ValueError('Incorrect input shape')
         x = self.W @ x
         if self.bias is not None:
             x += self.bias

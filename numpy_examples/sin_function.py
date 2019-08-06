@@ -22,6 +22,5 @@ model.add(Dense(net_weights[6], net_weights[7]))
 X = np.linspace(-3.14, 3.14, 1000)
 y = model(X)
 
-print(y)
 plt.plot(X, y)
 plt.show()
